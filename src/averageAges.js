@@ -69,22 +69,22 @@ function FindWomenWithChildren(person, arrPeople) {
  * @return {number}
  */
 function calculateAverageAgeDiff(people, onlyWithSon) {
-  const listChildren = findMother(people);
+  let listChildren = findMother(people);
 
-  const listSons = onlyWithSon
+  listChildren = onlyWithSon
     ? listChildren.filter(child => child.sex === 'm')
     : listChildren;
 
-  return listSons.reduce(
-    (result, child) => result + child.born - (people.find(
+  return listChildren.reduce((result, child) =>
+    result + child.born - (people.find(
       person => person.name === child.mother).born
-    ), 0) / listSons.length;
+    ), 0) / listChildren.length;
 }
 
 function findMother(arrPeople) {
   return arrPeople.filter(
     child => child.mother && arrPeople.find(
-      person => person.name === child
+      person => person.name === child.mother
     )
   );
 }
